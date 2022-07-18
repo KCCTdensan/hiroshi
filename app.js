@@ -4,10 +4,7 @@ import mic from "mic"
 
 const sampleRate = process.env.SAMPLE_RATE ?? 16000
 const modelPath = process.env.MODEL_PATH ?? "model"
-
-try {
-  await fs.access(modelPath, fs.constants.R_OK)
-} catch {
+if (await fs.access(modelPath, fs.constants.R_OK)) {
   console.error("model not found")
   process.exit(1)
 }
@@ -19,16 +16,17 @@ const rec = new vosk.Recognizer({ model, sampleRate })
 const micInstance = mic({
   rate: String(sampleRate),
   debug: false,
+  device: "default",
 })
 const micStream = micInstance.getAudioStream()
 
 micStream.on("data", data => {
   if (rec.acceptWaveform(data)) {
     console.log("accept")
-    console.log(req.result())
+    console.log(rec.result())
   } else {
-    console.log("partial")
-    console.log(req.partialResult())
+    const res = rec.partialResult()
+    if (res.partial) console.log(res)
   }
 })
 
