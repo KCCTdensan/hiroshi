@@ -1,13 +1,8 @@
 {
-  "name": "hiroshi",
-  "version": "0.1.0",
-  "dependencies": {
-    "mic": "^2.1.2",
-    "vosk": "^0.3.39"
-  },
+  "name": "@kcctdensan/hiroshi",
   "private": true,
-  "scripts": {
-    "start": "node app.js"
-  },
-  "type": "module"
+  "workspaces": [
+    "app",
+    "listen"
+  ]
 }

@@ -1,0 +1,17 @@
+{
+  "name": "@kcctdensan/hiroshi-listen",
+  "version": "0.1.0",
+  "dependencies": {
+    "mic": "^2.1.2",
+    "vosk": "^0.3.39",
+    "ws": "^8.8.1"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "type": "module"
+}
