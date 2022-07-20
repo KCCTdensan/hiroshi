@@ -30,7 +30,8 @@ const micStream = micInstance.getAudioStream()
 micStream.on("data", data => {
   if (rec.acceptWaveform(data)) {
     const res = rec.result()
-    if (res.text)
+    if (res.text) {
+      console.log(res)
       wss.clients.forEach(client => {
         if (client.readyState === WebSocket.OPEN)
           client.send(
@@ -40,10 +41,12 @@ micStream.on("data", data => {
             })
           )
       })
+    }
   } else {
     const res = rec.partialResult()
-    if (res.partial)
-      wss.client.forEach(client => {
+    if (res.partial) {
+      console.log(res)
+      wss.clients.forEach(client => {
         if (client.readyState === WebSocket.OPEN)
           client.send(
             JSON.stringify({
@@ -52,6 +55,7 @@ micStream.on("data", data => {
             })
           )
       })
+    }
   }
 })
 
